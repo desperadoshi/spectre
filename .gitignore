@@ -5,6 +5,7 @@
 # Ignore build dirs named similarly to the example in the installation notes;
 # in general arbitrary names are possible and cannot all be ignored.
 /build*
+run/*
 
 # Temporary editor files
 *~
@@ -19,6 +20,7 @@ compile_commands.json
 .cquery_cached_index
 .ycm_extra_conf.py
 .clangd
+*.vim
 
 # TeX products
 *.aux
@@ -55,3 +57,4 @@ GRTAGS
 GTAGS
 TAGS
 tags
+

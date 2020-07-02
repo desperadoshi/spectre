@@ -22,6 +22,7 @@
 #include "Evolution/DiscontinuousGalerkin/DgElementArray.hpp"
 #include "Evolution/DiscontinuousGalerkin/Limiters/LimiterActions.hpp"
 #include "Evolution/DiscontinuousGalerkin/Limiters/Minmod.tpp"
+#include "Evolution/DiscontinuousGalerkin/Limiters/Weno.hpp"
 #include "Evolution/DiscontinuousGalerkin/Limiters/Tags.hpp"
 #include "Evolution/Initialization/ConservativeSystem.hpp"
 #include "Evolution/Initialization/DgDomain.hpp"
@@ -138,7 +139,12 @@ struct EvolutionMetavars {
   using normal_dot_numerical_flux =
       Tags::NumericalFlux<dg::NumericalFluxes::Hll<system>>;
 
-  using limiter = Tags::Limiter<Limiters::Minmod<
+  // using limiter = Tags::Limiter<Limiters::Minmod<
+  //     Dim,
+  //     tmpl::list<NewtonianEuler::Tags::MassDensityCons,
+  //                NewtonianEuler::Tags::MomentumDensity<Dim, Frame::Inertial>,
+  //                NewtonianEuler::Tags::EnergyDensity>>>;
+  using limiter = Tags::Limiter<Limiters::Weno<
       Dim,
       tmpl::list<NewtonianEuler::Tags::MassDensityCons,
                  NewtonianEuler::Tags::MomentumDensity<Dim, Frame::Inertial>,

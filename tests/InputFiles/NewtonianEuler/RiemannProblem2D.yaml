@@ -12,45 +12,51 @@ Evolution:
 
 DomainCreator:
   Rectangle:
-    LowerBound: [-0.25, 0.0]
-    UpperBound: [0.75, 0.1]
+    LowerBound: [0.0, 0.0]
+    UpperBound: [1.0, 0.1]
     IsPeriodicIn: [false, false]
-    InitialRefinement: [4, 0]
-    InitialGridPoints: [2, 2]
+    # InitialRefinement: [5, 0] # 64 cells
+    InitialRefinement: [6, 0] # 128 cells
+    InitialGridPoints: [3, 2]
 
 AnalyticSolution:
   RiemannProblem:
     AdiabaticIndex: 1.4
     InitialPosition: 0.25
     LeftMassDensity: 1.0
-    LeftVelocity: [0.0, 0.5]
+    LeftVelocity: [0.5, 0.0]
     LeftPressure: 1.0
     RightMassDensity: 0.125
-    RightVelocity: [0.0, 0.2]
+    RightVelocity: [0.2, 0.0]
     RightPressure: 0.1
 
 NumericalFlux:
   Hll:
 
 Limiter:
-  Minmod:
-    # Uncomment line below to turn off the limiter:
-    # DisableForDebugging: True
-    Type: LambdaPiN
-    # Recommended value from minmod papers:
+  # Minmod:
+  #   # Uncomment line below to turn off the limiter:
+  #   # DisableForDebugging: True
+  #   Type: LambdaPiN
+  #   # Recommended value from minmod papers:
+  #   TvbConstant: 50.0
+  Weno:
+    Type: SimpleWeno
+    # Type: Hweno
     TvbConstant: 50.0
 
 EventsAndTriggers:
-  # ? EveryNSlabs:
-  #     N: 100
-  #     Offset: 0
-  # : - ObserveFields:
-  #       VariablesToObserve: [MassDensity]
+  ? EveryNSlabs:
+      N: 100
+      Offset: 0
+  : - ObserveFields:
+        VariablesToObserve: [MassDensity, Velocity, Pressure]
   # ? PastTime: 0.7501
   ? SpecifiedSlabs:
-      Slabs: [10]
+      Slabs: [2000]
   : - Completion
 
 Observers:
-  VolumeFileName: "./NewtonianEulerRiemannProblemVolume2D"
+  VolumeFileName: "./NewtonianEulerRiemannProblemVolume2D_128_3_SimpleWENO_"
+  # VolumeFileName: "./NewtonianEulerRiemannProblemVolume2D"
   ReductionFileName: "./NewtonianEulerRiemannProblemReductions2D"
