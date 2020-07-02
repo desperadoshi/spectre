@@ -1,3 +1,12 @@
+# Changes in this repo
+
+Allow WENO limiter to be specified in the input file.
+Since the valid limiter option is hard-coded,
+MINMOD limiter is invalid with these code changes.
+The input file for RiemannProblem2D is also updated.
+
+I just read the source codes and learn about the WENO limiter here.
+
 [//]: # (Distributed under the MIT License.)
 [//]: # (See LICENSE.txt for details.)
 
